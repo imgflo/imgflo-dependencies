@@ -8,10 +8,8 @@ TARGET=$(shell uname -n)
 ifneq ("$(wildcard /app)","")
 # Heroku build. TODO: find better way to detect
 PKGCONFIG_ARGS:=--define-variable=prefix=$(PREFIX)
-all: heroku-release
 else
 PKGCONFIG_ARGS:=
-all: release
 endif
 
 LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng
@@ -34,7 +32,11 @@ INTLTOOL_MAJOR=0.40
 INTLTOOL_VERSION=0.40.6
 INTLTOOL_TARNAME=intltool-$(INTLTOOL_VERSION)
 
+GETTEXT_TARNAME=gettext-0.18.2
+
 SQLITE_TARNAME=sqlite-autoconf-3080403
+
+all: env
 
 install: env link-check
 	cp ./examples/link-check $(PREFIX)/bin/link-check
@@ -60,6 +62,12 @@ intltool: env
 	cd build/$(INTLTOOL_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
 	cd build/$(INTLTOOL_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
+gettext: env
+	cd build && curl -L -O http://ftp.gnu.org/pub/gnu/gettext/$(GETTEXT_TARNAME).tar.gz
+	cd build && tar -xzvf $(GETTEXT_TARNAME).tar.gz
+	cd build/$(GETTEXT_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
+	cd build/$(GETTEXT_TARNAME) && make -j4 install
+
 libffi: env
 	cd build && curl -o $(LIBFFI_TARNAME).tar.gz ftp://sourceware.org/pub/libffi/$(LIBFFI_TARNAME).tar.gz
 	cd build && tar -xf $(LIBFFI_TARNAME).tar.gz
@@ -83,14 +91,26 @@ babl: env
 	cd babl && $(PREFIX)/env.sh make -j4 install
 
 gegl: babl env
+	cp $(PREFIX)/share/aclocal/nls.m4 ./gegl/m4/ || echo "HACK to get intltool working on Heroku not used"
 	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX)
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 
 libsoup: env
+	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used
 	cd libsoup && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) --disable-tls-check
 	cd libsoup && $(PREFIX)/env.sh make -j4 install
 
-heroku-deps: intltool libffi glib json-glib sqlite
+xml-parser: env
+	echo "Installing XML::Parser module"
+	$(PREFIX)/env.sh /app/local/bin/cpanm --local-lib=/app/local/lib/perl5/ -f -n XML::Parser
+
+perl-buildpack: env
+	echo "Installing Perl buildpack"
+	curl -L -O https://raw.github.com/miyagawa/heroku-buildpack-perl/master/bin/compile
+	chmod +x ./compile
+	$(PREFIX)/env.sh ./compile /app /app/cache
+
+heroku-deps: perl-buildpack xml-parser intltool gettext libffi glib json-glib sqlite
 
 travis-deps: glib json-glib sqlite
 
@@ -108,7 +128,7 @@ package:
 upload:
 	curl --ftp-create-dirs -T imgflo-dependencies-$(VERSION)-*.tgz -u $(FTP_USER):$(FTP_PASSWORD) ftp://vps.jonnor.com/ftp/
 
-release: dependencies check upload
+release: dependencies check package upload
 
 heroku-release: heroku-deps dependencies package upload
 
