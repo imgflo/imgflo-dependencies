@@ -102,9 +102,14 @@ check: install
 clean:
 	git clean -dfx --exclude node_modules --exclude install
 
-release: check
+package:
 	cd $(PREFIX) && tar -caf ../imgflo-dependencies-$(VERSION)-$(TARGET).tgz ./
 
-heroku-release: heroku-deps dependencies release
+upload:
+	curl --ftp-create-dirs -T imgflo-dependencies-$(VERSION)-*.tgz -u $(FTP_USER):$(FTP_PASSWORD) ftp://vps.jonnor.com/ftp/
+
+release: dependencies check upload
+
+heroku-release: heroku-deps dependencies package upload
 
 .PHONY=all link-check
