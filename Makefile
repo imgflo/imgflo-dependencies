@@ -1,8 +1,9 @@
 
-VERSION=$(shell echo `git describe`)
+VERSION=$(shell echo `git describe --tags`)
 #PREFIX=/opt/imgflo
 PREFIX=$(shell echo `pwd`/install)
 FLAGS=-Wall -Werror -std=c99 -g
+TARGET=$(shell uname -n)
 
 ifneq ("$(wildcard /app)","")
 # Heroku build. TODO: find better way to detect
@@ -35,8 +36,8 @@ SQLITE_TARNAME=sqlite-autoconf-3080403
 
 all: install
 
-install: env imgflo
-	cp ./examples/dep-check $(PREFIX)/bin/dep-check
+install: env link-check
+	cp ./examples/link-check $(PREFIX)/bin/link-check
 
 link-check:
 	$(PREFIX)/env.sh gcc -o ./examples/link-check examples/link-check.c -I. $(FLAGS) $(DEPS)
@@ -100,6 +101,6 @@ clean:
 	git clean -dfx --exclude node_modules --exclude install
 
 release: check
-	cd $(PREFIX) && tar -caf ../imgflo-$(VERSION).tgz ./
+	cd $(PREFIX) && tar -caf ../imgflo-dependencies-$(TARGET)-$(VERSION).tgz ./
 
 .PHONY=all link-check
