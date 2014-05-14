@@ -8,8 +8,10 @@ TARGET=$(shell uname -n)
 ifneq ("$(wildcard /app)","")
 # Heroku build. TODO: find better way to detect
 PKGCONFIG_ARGS:=--define-variable=prefix=$(PREFIX)
+all: heroku-release
 else
 PKGCONFIG_ARGS:=
+all: release
 endif
 
 LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng
@@ -33,8 +35,6 @@ INTLTOOL_VERSION=0.40.6
 INTLTOOL_TARNAME=intltool-$(INTLTOOL_VERSION)
 
 SQLITE_TARNAME=sqlite-autoconf-3080403
-
-all: install
 
 install: env link-check
 	cp ./examples/link-check $(PREFIX)/bin/link-check
@@ -92,6 +92,8 @@ libsoup: env
 
 heroku-deps: intltool libffi glib json-glib sqlite
 
+travis-deps: glib json-glib sqlite
+
 dependencies: gegl babl libsoup
 
 check: install
@@ -101,6 +103,8 @@ clean:
 	git clean -dfx --exclude node_modules --exclude install
 
 release: check
-	cd $(PREFIX) && tar -caf ../imgflo-dependencies-$(TARGET)-$(VERSION).tgz ./
+	cd $(PREFIX) && tar -caf ../imgflo-dependencies-$(VERSION)-$(TARGET).tgz ./
+
+heroku-release: heroku-deps dependencies release
 
 .PHONY=all link-check
