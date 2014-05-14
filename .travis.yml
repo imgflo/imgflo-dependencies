@@ -9,4 +9,4 @@ before_install:
 script:
 - make travis-deps
 - make dependencies
-- make release
+- make check
