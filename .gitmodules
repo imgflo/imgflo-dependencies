@@ -1,0 +1,9 @@
+[submodule "gegl"]
+	path = gegl
+	url = git://git.gnome.org/gegl
+[submodule "babl"]
+	path = babl
+	url = git://git.gnome.org/babl
+[submodule "libsoup"]
+	path = libsoup
+	url = https://github.com/jonnor/libsoup.git
