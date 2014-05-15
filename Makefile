@@ -96,7 +96,7 @@ gegl: babl env
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 
 libsoup: env
-	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used
+	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
 	cd libsoup && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) --disable-tls-check
 	cd libsoup && $(PREFIX)/env.sh make -j4 install
 
