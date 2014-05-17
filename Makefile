@@ -90,9 +90,9 @@ babl: env
 	cd babl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX)
 	cd babl && $(PREFIX)/env.sh make -j4 install
 
-gegl: babl env
+gegl: env
 	cp $(PREFIX)/share/aclocal/nls.m4 ./gegl/m4/ || echo "HACK to get intltool working on Heroku not used"
-	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX)
+	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) --enable-workshop --without-libavformat
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 
 libsoup: env
@@ -114,7 +114,7 @@ heroku-deps: perl-buildpack xml-parser intltool gettext libffi glib json-glib sq
 
 travis-deps: glib json-glib sqlite
 
-dependencies: gegl babl libsoup
+dependencies: babl gegl libsoup
 
 check: install
 	$(PREFIX)/env.sh $(PREFIX)/bin/link-check
