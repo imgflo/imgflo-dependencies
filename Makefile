@@ -40,6 +40,8 @@ SQLITE_TARNAME=sqlite-autoconf-3080403
 UUID_MAJOR=2.24
 UUID_TARNAME=util-linux-2.24.2
 
+GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l
+
 all: env
 
 install: env link-check
@@ -102,7 +104,7 @@ babl: env
 
 gegl: env
 	cp $(PREFIX)/share/aclocal/nls.m4 ./gegl/m4/ || echo "HACK to get intltool working on Heroku not used"
-	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) --enable-workshop --without-libavformat
+	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) $(GEGL_OPTIONS)
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 # TODO: upstream gegl-imgcmp
 	cd gegl && cp ./tools/img_cmp $(PREFIX)/bin/gegl-imgcmp
