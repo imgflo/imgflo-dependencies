@@ -12,7 +12,7 @@ else
 PKGCONFIG_ARGS:=
 endif
 
-LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng
+LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng uuid
 DEPS=$(shell $(PREFIX)/env.sh pkg-config $(PKGCONFIG_ARGS) --libs --cflags $(LIBS))
 
 GNOME_SOURCES=http://ftp.gnome.org/pub/gnome/sources
@@ -126,7 +126,7 @@ perl-buildpack: env
 
 heroku-deps: uuid perl-buildpack xml-parser intltool gettext libffi glib json-glib sqlite
 
-travis-deps: glib json-glib sqlite
+travis-deps: uuid glib json-glib sqlite
 
 dependencies: babl gegl libsoup
 

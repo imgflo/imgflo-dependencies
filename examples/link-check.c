@@ -2,6 +2,7 @@
 * Smoke-check for building
 */
 
+#include <uuid.h>
 #include <glib.h>
 #include <gegl.h>
 #include <gegl-plugin.h>
@@ -32,6 +33,12 @@ void
 check_gegl(void) {
     GeglNode *node = gegl_node_new();
     g_object_unref(node);
+}
+
+void
+check_uuid(void) {
+    uuid_t u;
+    uuid_generate(u);
 }
 
 int
