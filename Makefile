@@ -128,7 +128,7 @@ heroku-deps: uuid perl-buildpack xml-parser intltool gettext libffi glib json-gl
 
 travis-deps: uuid glib json-glib sqlite
 
-dependencies: babl gegl libsoup
+dependencies: libsoup babl gegl
 
 check: install
 	$(PREFIX)/env.sh $(PREFIX)/bin/link-check
