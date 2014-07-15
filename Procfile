@@ -1,1 +1,1 @@
-build: make heroku-release TARGET=heroku
+build: make heroku-release TARGET=heroku VERSION=23
