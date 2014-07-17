@@ -9,11 +9,15 @@ before_install:
 script:
 - make travis-deps
 - make dependencies
-- make check
+- make release TARGET=travis
 deploy:
   provider: heroku
   app: imgflo-dependencies
   run:
-    - "make heroku-release TARGET=heroku VERSION=`git describe --tags`"
+  - make heroku-release TARGET=heroku VERSION=`git describe --tags`
   api_key:
     secure: KSAM1YdPTKCYufFscxk6g6t9GBt8x40TrLP2jxWBPFaKpcxEC6P5IgzaWuGr9+r5RAtQVpFEY4MTFvmh8QWGTkv9LP79X0YYQBvoB8i18hLMJO7kLh5EG0fA8mlB/gqiUoueOd9qU/afb3GSoDP2Tm20MuyDThPAwtOhKwUTCgc=
+env:
+  global:
+  - secure: hmMq4ab2aLNUXgKi4YeJv736ArXlNR1FAnINDILdZ0Q6Ht1t/a7TBYBercUx1GWQJnaodxPtHiBZYsQuFYM1UEY34zxXpjjffcRO35zvsbQLQzYy54u31yjG7h1+u6EXNoaU0uno+8Ahuhg4ilAoYLNabqoJnQ4HVIRMdx7WNIQ=
+  - secure: dSd/ym4HclfRga/KllFut1nCMbPBrpEP+2WKkgwNnlctlpf5WlHnBbRMOS3fRHiVPwrAKUm68oLkDIZGyZv59smDabM1NcX+dKAoLNYz2u2jWOk3W02eA0/MyIPlOUR8/ZR/tQPucVfvXRmPDjH014cE9PZ6PBT3iW2HSePYTZk=
