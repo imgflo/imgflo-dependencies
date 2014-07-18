@@ -7,6 +7,10 @@ TARGET=$(shell uname -n)
 
 ifneq ("$(wildcard /app)","")
 # Heroku build. TODO: find better way to detect
+RELOCATE_DEPS:=true
+endif
+
+ifdef RELOCATE_DEPS
 PKGCONFIG_ARGS:=--define-variable=prefix=$(PREFIX)
 else
 PKGCONFIG_ARGS:=
