@@ -111,7 +111,7 @@ gegl: env
 	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) $(GEGL_OPTIONS)
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 # TODO: upstream gegl-imgcmp
-	cd gegl && cp ./tools/img_cmp $(PREFIX)/bin/gegl-imgcmp
+	cd gegl && cp ./tools/.libs/img_cmp $(PREFIX)/bin/gegl-imgcmp
 
 libsoup: env
 	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
