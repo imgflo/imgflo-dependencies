@@ -10,9 +10,14 @@ script:
 - make travis-deps
 - make dependencies
 - make release TARGET=travis
+before_deploy:
+- if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 deploy:
   provider: heroku
   app: imgflo-dependencies
+  strategy: git
+  on:
+    all_branches: true
   run:
   - make heroku-release TARGET=heroku VERSION=`git describe --tags`
   api_key:
