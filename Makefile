@@ -22,8 +22,8 @@ DEPS=$(shell $(PREFIX)/env.sh pkg-config $(PKGCONFIG_ARGS) --libs --cflags $(LIB
 GNOME_SOURCES=http://ftp.gnome.org/pub/gnome/sources
 KERNEL_SOURCES=https://www.kernel.org/pub/linux
 
-GLIB_MAJOR=2.38
-GLIB_VERSION=2.38.2
+GLIB_MAJOR=2.41
+GLIB_VERSION=2.41.2
 GLIB_TARNAME=glib-$(GLIB_VERSION)
 
 JSON_GLIB_MAJOR=1.0
