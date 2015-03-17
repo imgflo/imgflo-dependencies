@@ -6,4 +6,4 @@
 	url = git://git.gnome.org/babl
 [submodule "libsoup"]
 	path = libsoup
-	url = https://github.com/jonnor/libsoup.git
+	url = git://git.gnome.org/libsoup
