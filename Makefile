@@ -56,7 +56,7 @@ link-check:
 
 env:
 	mkdir -p build || true
-	mkdir -p $(PREFIX) || true
+	mkdir -p $(PREFIX)/bin || true
 	sed -e 's|@PREFIX@|$(PREFIX)|' env.sh.in > $(PREFIX)/env.sh
 	chmod +x $(PREFIX)/env.sh
 
