@@ -73,7 +73,7 @@ sqlite: env
 	cd build/$(SQLITE_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 intltool: env
-	cd build && curl -o $(INTLTOOL_TARNAME).tar.gz $(GNOME_SOURCES)/intltool/$(INTLTOOL_MAJOR)/$(INTLTOOL_TARNAME).tar.gz
+	cd build && curl -L -O $(GNOME_SOURCES)/intltool/$(INTLTOOL_MAJOR)/$(INTLTOOL_TARNAME).tar.gz
 	cd build && tar -xf $(INTLTOOL_TARNAME).tar.gz
 	cd build/$(INTLTOOL_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
 	cd build/$(INTLTOOL_TARNAME) && $(PREFIX)/env.sh make -j4 install
@@ -91,13 +91,13 @@ libffi: env
 	cd build/$(LIBFFI_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 json-glib: env
-	cd build && curl -o $(JSON_GLIB_TARNAME).tar.xz $(GNOME_SOURCES)/json-glib/$(JSON_GLIB_MAJOR)/$(JSON_GLIB_TARNAME).tar.xz
+	cd build && curl -L -O $(GNOME_SOURCES)/json-glib/$(JSON_GLIB_MAJOR)/$(JSON_GLIB_TARNAME).tar.xz
 	cd build && tar -xf $(JSON_GLIB_TARNAME).tar.xz
 	cd build/$(JSON_GLIB_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
 	cd build/$(JSON_GLIB_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 glib: env
-	cd build && curl -o $(GLIB_TARNAME).tar.xz $(GNOME_SOURCES)/glib/$(GLIB_MAJOR)/$(GLIB_TARNAME).tar.xz
+	cd build && curl -L -O $(GNOME_SOURCES)/glib/$(GLIB_MAJOR)/$(GLIB_TARNAME).tar.xz
 	cd build && tar -xf $(GLIB_TARNAME).tar.xz
 	cd build/$(GLIB_TARNAME) && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX)
 	cd build/$(GLIB_TARNAME) && $(PREFIX)/env.sh make -j4 install
