@@ -26,6 +26,10 @@ GLIB_MAJOR=2.42
 GLIB_VERSION=2.42.1
 GLIB_TARNAME=glib-$(GLIB_VERSION)
 
+LIBSOUP_MAJOR=2.49
+LIBSOUP_VERSION=2.49.92
+LIBSOUP_TARNAME=libsoup-$(LIBSOUP_VERSION)
+
 JSON_GLIB_MAJOR=1.0
 JSON_GLIB_VERSION=1.0.2
 JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
@@ -112,10 +116,11 @@ gegl: env
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 
 libsoup: env
-	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
-	cd libsoup && git apply ../patches/libsoup-0001-Make-gtk-doc-optional.patch
-	cd libsoup && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) --disable-tls-check
-	cd libsoup && $(PREFIX)/env.sh make -j4 install
+#	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
+	cd build && curl -L -O $(GNOME_SOURCES)/libsoup/$(LIBSOUP_MAJOR)/$(LIBSOUP_TARNAME).tar.xz
+	cd build && tar -xf $(LIBSOUP_TARNAME).tar.xz
+	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --disable-gtk-doc
+	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 xml-parser: env
 	echo "Installing XML::Parser module"
@@ -149,4 +154,4 @@ release: dependencies check package upload
 
 heroku-release: heroku-deps dependencies package upload
 
-.PHONY=all link-check
+.PHONY=all link-check libsoup

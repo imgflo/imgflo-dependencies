@@ -4,6 +4,3 @@
 [submodule "babl"]
 	path = babl
 	url = git://git.gnome.org/babl
-[submodule "libsoup"]
-	path = libsoup
-	url = git://git.gnome.org/libsoup
