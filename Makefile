@@ -113,6 +113,7 @@ gegl: env
 
 libsoup: env
 	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
+	cd libsoup && git am ../patches/libsoup-0001-Make-gtk-doc-optional.patch
 	cd libsoup && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) --disable-tls-check
 	cd libsoup && $(PREFIX)/env.sh make -j4 install
 

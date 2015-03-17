@@ -1,0 +1,80 @@
+From e9c7d6d612d4960349ad954657e9e2568587c167 Mon Sep 17 00:00:00 2001
+From: Jon Nordby <jononor@gmail.com>
+Date: Fri, 25 Apr 2014 14:29:17 +0200
+Subject: [PATCH] Make gtk-doc optional
+
+This is practical for building in very sparse environment like Heroku,
+where pulling in gtk-doc requires building many more dependencies.
+---
+ autogen.sh                 | 7 ++++---
+ configure.ac               | 4 ++++
+ docs/Makefile.am           | 4 ++++
+ docs/reference/Makefile.am | 3 +++
+ 4 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/autogen.sh b/autogen.sh
+index cb3e9bd..31fe2c4 100755
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -21,11 +21,12 @@ fi
+ 
+ GTKDOCIZE=`which gtkdocize`
+ if test -z $GTKDOCIZE; then
+-        echo "*** No GTK-Doc found, please install it ***"
+-        exit 1
++        echo "*** No GTK-Doc found, you will not be able to create API documentation***"
++        echo 'EXTRA_DIST =' > gtk-doc.make
++else
++        gtkdocize
+ fi
+ 
+-gtkdocize || exit $?
+ intltoolize --automake --copy
+ autoreconf --force --install --verbose
+ 
+diff --git a/configure.ac b/configure.ac
+index d71952a..1ac40ee 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -148,7 +148,11 @@ AC_SUBST(HAVE_GNOME)
+ dnl ***************
+ dnl *** gtk-doc ***
+ dnl ***************
++m4_ifdef([GTK_DOC_CHECK], [
+ GTK_DOC_CHECK([1.10])
++],[
++AM_CONDITIONAL([ENABLE_GTK_DOC], false)
++])
+ 
+ dnl *****************************
+ dnl *** gobject-introspection ***
+diff --git a/docs/Makefile.am b/docs/Makefile.am
+index f3ddc22..a39e432 100644
+--- a/docs/Makefile.am
++++ b/docs/Makefile.am
+@@ -1 +1,5 @@
++if ENABLE_GTK_DOC
+ SUBDIRS = reference
++else
++SUBDIRS =
++endif
+diff --git a/docs/reference/Makefile.am b/docs/reference/Makefile.am
+index d47693a..4de4a81 100644
+--- a/docs/reference/Makefile.am
++++ b/docs/reference/Makefile.am
+@@ -1,5 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ AUTOMAKE_OPTIONS = 1.6
++if ENABLE_GTK_DOC
+ 
+ # The name of the module
+ DOC_MODULE=libsoup-2.4
+@@ -83,3 +84,5 @@ $(srcdir)/tmpl/*.sgml:
+ 
+ clean: clean-am
+ 	rm -rf tmpl
++
++endif
+-- 
+2.3.2
+
