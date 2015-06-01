@@ -132,7 +132,11 @@ perl-buildpack: env
 	chmod +x ./compile
 	$(PREFIX)/env.sh ./compile /app /app/cache
 
-heroku-deps: uuid json-glib sqlite
+copy-apt:
+	# move into our prefix so it will be installed and
+	cp -a /app/.apt/usr/* $(PREFIX)/
+
+heroku-deps: copy-apt uuid sqlite
 
 travis-deps: uuid glib json-glib sqlite
 
