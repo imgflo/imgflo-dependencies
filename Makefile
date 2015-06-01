@@ -132,7 +132,7 @@ perl-buildpack: env
 	chmod +x ./compile
 	$(PREFIX)/env.sh ./compile /app /app/cache
 
-heroku-deps: uuid json-glib sqlite
+heroku-deps: uuid xml-parser json-glib sqlite
 
 travis-deps: uuid glib json-glib sqlite
 
