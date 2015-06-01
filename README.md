@@ -2,6 +2,9 @@
 Naitive dependencies of [imgflo](http://github.com/jonnor/imgflo)
 and build-system for these.
 
+Releases up to version 45 were for cedar Heroku stack,
+later are for cedar-14.
+
 License
 --------
 See the individual git submodules for the licenses of the projects used.
