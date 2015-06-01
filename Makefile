@@ -136,7 +136,7 @@ copy-apt:
 	# move into our prefix so it will be installed and
 	cp -a /app/.apt/usr/* $(PREFIX)/
 
-heroku-deps: copy-apt uuid sqlite
+heroku-deps: copy-apt uuid json-glib sqlite
 
 travis-deps: uuid glib json-glib sqlite
 
