@@ -134,7 +134,7 @@ perl-buildpack: env
 
 copy-apt:
 	# move into our prefix so it will be installed and
-	cp -a /app/.apt/usr/* $(PREFIX)/
+	rsync -a /app/.apt/usr/* $(PREFIX)/
 
 heroku-deps: copy-apt uuid json-glib sqlite
 
