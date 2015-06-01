@@ -14,7 +14,7 @@ before_deploy:
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 deploy:
   provider: heroku
-  app: imgflo-dependencies
+  app: imgflo-dependencies14
   strategy: git
   on:
     all_branches: true
