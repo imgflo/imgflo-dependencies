@@ -21,7 +21,7 @@ deploy:
   run:
   - make heroku-release TARGET=heroku VERSION=`git describe --tags`
   api_key:
-    secure: KSAM1YdPTKCYufFscxk6g6t9GBt8x40TrLP2jxWBPFaKpcxEC6P5IgzaWuGr9+r5RAtQVpFEY4MTFvmh8QWGTkv9LP79X0YYQBvoB8i18hLMJO7kLh5EG0fA8mlB/gqiUoueOd9qU/afb3GSoDP2Tm20MuyDThPAwtOhKwUTCgc=
+    secure: J5slnQnumuFDxRDZWz+XWPCWguoPZpQlU5NJ2Hcvs1GTiA7wCN/hHIIOZeT+TXHVchlZX4lkF3KrNXNNxGw4jM5BU9l+8mqx623tmSzH2c8BlyFw10f/iRQP/xae7gbl4vSt3XlRsqugqDpbpQ0/g9L+ZikRac1pzShxXm2rxQ4=
 env:
   global:
   - secure: hmMq4ab2aLNUXgKi4YeJv736ArXlNR1FAnINDILdZ0Q6Ht1t/a7TBYBercUx1GWQJnaodxPtHiBZYsQuFYM1UEY34zxXpjjffcRO35zvsbQLQzYy54u31yjG7h1+u6EXNoaU0uno+8Ahuhg4ilAoYLNabqoJnQ4HVIRMdx7WNIQ=
