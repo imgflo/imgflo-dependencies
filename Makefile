@@ -48,7 +48,7 @@ SQLITE_TARNAME=sqlite-autoconf-3080403
 UUID_MAJOR=2.24
 UUID_TARNAME=util-linux-2.24.2
 
-GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l
+GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
 all: env
 
