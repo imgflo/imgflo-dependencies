@@ -138,7 +138,7 @@ copy-apt:
 
 heroku-deps: copy-apt uuid json-glib sqlite
 
-travis-deps: sqlite
+travis-deps: uuid sqlite
 
 dependencies: libsoup babl gegl
 
