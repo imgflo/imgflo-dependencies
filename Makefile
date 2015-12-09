@@ -67,7 +67,7 @@ env:
 uuid: env
 	cd build && curl -O $(KERNEL_SOURCES)/utils/util-linux/v$(UUID_MAJOR)/$(UUID_TARNAME).tar.gz
 	cd build && tar -xf $(UUID_TARNAME).tar.gz
-	cd build/$(UUID_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --without-systemdsystemunitdir --disable-use-tty-group
+	cd build/$(UUID_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --without-systemdsystemunitdir --disable-use-tty-group --disable-bash-completion
 	cd build/$(UUID_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 sqlite: env
