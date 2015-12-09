@@ -36,7 +36,7 @@ JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
 FFMPEG_VERSION=3.2
 FFMPEG_OPTIONS=--enable-ffmpeg --enable-avcodec --enable-avformat
 
-GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
+GEGL_OPTIONS=--enable-workshop --without-libv4l --without-umfpack --with-libavformat
 
 all: env
 
