@@ -10,6 +10,7 @@ before_install:
 - sudo apt-get --assume-yes install libjson-glib-dev libsdl1.2-dev ffmpeg
 - git submodule update --init --recursive
 script:
+- export PKG_CONFIG_PATH=/opt/ffmpeg/lib/pkgconfig/:${PKG_CONFIG_PATH}
 - make travis-deps
 - make dependencies
 - make release TARGET=travis
