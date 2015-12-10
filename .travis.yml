@@ -8,6 +8,8 @@ before_install:
 - sudo apt-get --assume-yes build-dep gegl
 - sudo apt-get --assume-yes install libjson-glib-dev libsdl1.2-dev
 - git submodule update --init --recursive
+- wget https://launchpad.net/~mc3man/+archive/ubuntu/trusty-media/+files/ffmpeg_2.8.3%2Bgit1%7Etrusty1_amd64.deb
+- sudo dpkg -i ffmpeg_2.8.3+git1~trusty1_amd64.deb
 script:
 - make travis-deps
 - make dependencies
