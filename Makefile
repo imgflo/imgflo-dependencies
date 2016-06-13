@@ -16,7 +16,7 @@ else
 PKGCONFIG_ARGS:=
 endif
 
-LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng uuid
+LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng
 DEPS=$(shell $(PREFIX)/env.sh pkg-config $(PKGCONFIG_ARGS) --libs --cflags $(LIBS))
 
 GNOME_SOURCES=http://ftp.gnome.org/pub/gnome/sources
@@ -136,9 +136,9 @@ copy-apt:
 	# move into our prefix so it will be installed and
 	rsync -a /app/.apt/usr/* $(PREFIX)/
 
-heroku-deps: copy-apt uuid json-glib sqlite
+heroku-deps: copy-apt json-glib sqlite
 
-travis-deps: uuid sqlite
+travis-deps: sqlite
 
 dependencies: libsoup babl gegl
 
