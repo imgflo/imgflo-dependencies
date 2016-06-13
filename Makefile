@@ -111,7 +111,7 @@ babl: env
 	cd babl && $(PREFIX)/env.sh make -j4 install
 
 gegl: env
-	cp $(PREFIX)/share/aclocal/nls.m4 ./gegl/m4/ || echo "HACK to get intltool working on Heroku not used"
+	cp ./hacks/nls.m4 ./gegl/m4/ && echo "HACKED nls.m4"
 	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) $(GEGL_OPTIONS)
 	cd gegl && $(PREFIX)/env.sh make -j4 install
 
