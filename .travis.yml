@@ -18,7 +18,7 @@ deploy:
   app: imgflo-dependencies14
   strategy: git
   on:
-    all_branches: true
+    tags: true
   run:
   - make heroku-release TARGET=heroku VERSION=`git describe --tags`
   api_key:
