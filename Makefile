@@ -149,7 +149,7 @@ clean:
 	git clean -dfx --exclude node_modules --exclude install
 
 package:
-	tar -caf ./imgflo-dependencies-$(VERSION)-$(TARGET).tgz ./install
+	tar -czf ./imgflo-dependencies-$(VERSION)-$(TARGET).tgz ./install
 
 upload: package
 	curl --ftp-create-dirs -T imgflo-dependencies-$(VERSION)-*.tgz -u $(FTP_USER):$(FTP_PASSWORD) ftp://vps.jonnor.com/ftp/
