@@ -11,6 +11,7 @@ before_install:
 - sh ./travis/install-dependencies.sh
 - git submodule update --init --recursive
 install:
+- export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 - make travis-deps
 - make dependencies
 script:
