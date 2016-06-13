@@ -1,6 +1,9 @@
 os:
 - linux
 - osx
+matrix:
+  allow_failures:
+    - os: osx
 language: c
 sudo: required
 dist: trusty
