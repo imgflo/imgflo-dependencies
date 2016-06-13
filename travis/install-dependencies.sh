@@ -1,6 +1,6 @@
 if [[ $TRAVIS_OS_NAME = "osx" ]]
 then
-    echo 'INSTALL OSX DEPS HERE'
+    brew install pkg-config intltool gettext glib
 else
     sudo apt-get update -qq
     sudo apt-get --assume-yes build-dep gegl
