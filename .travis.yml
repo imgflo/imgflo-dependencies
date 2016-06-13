@@ -15,7 +15,7 @@ script:
 - make check
 before_deploy:
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-- make upload TARGET=travis
+- make upload TARGET=travis-${TRAVIS_OS_NAME}
 deploy:
   provider: heroku
   app: imgflo-dependencies14
