@@ -10,9 +10,10 @@ install:
 - make travis-deps
 - make dependencies
 script:
-- make release TARGET=travis
+- make check
 before_deploy:
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+- make upload TARGET=travis
 deploy:
   provider: heroku
   app: imgflo-dependencies14

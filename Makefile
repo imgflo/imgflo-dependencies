@@ -151,11 +151,11 @@ clean:
 package:
 	tar -caf ./imgflo-dependencies-$(VERSION)-$(TARGET).tgz ./install
 
-upload:
+upload: package
 	curl --ftp-create-dirs -T imgflo-dependencies-$(VERSION)-*.tgz -u $(FTP_USER):$(FTP_PASSWORD) ftp://vps.jonnor.com/ftp/
 
-release: dependencies check package upload
+release: dependencies check upload
 
-heroku-release: heroku-deps dependencies package upload
+heroku-release: heroku-deps dependencies upload
 
 .PHONY=all link-check libsoup
