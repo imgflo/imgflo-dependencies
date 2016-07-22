@@ -9,7 +9,7 @@ before_install:
 - git submodule update --init --recursive
 install:
 - source ./travis/environment.sh
-- make travis-deps
+- make travis-${TRAVIS_OS_NAME}-deps
 - make dependencies
 script:
 - make check

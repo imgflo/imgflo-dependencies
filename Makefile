@@ -138,7 +138,10 @@ copy-apt:
 
 heroku-deps: copy-apt json-glib sqlite
 
-travis-deps: sqlite
+travis-linux-deps: sqlite
+
+travis-osx-deps:
+	echo "Nothing needed?"
 
 dependencies: libsoup babl gegl
 
