@@ -136,7 +136,7 @@ copy-apt:
 	# move into our prefix so it will be installed and
 	rsync -a /app/.apt/usr/* $(PREFIX)/
 
-heroku-deps: copy-apt json-glib sqlite
+heroku-deps: copy-apt sqlite
 
 travis-deps: sqlite
 
