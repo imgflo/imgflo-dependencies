@@ -34,15 +34,6 @@ JSON_GLIB_MAJOR=1.0
 JSON_GLIB_VERSION=1.0.2
 JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
 
-LIBFFI_VERSION=3.0.13
-LIBFFI_TARNAME=libffi-$(LIBFFI_VERSION)
-
-INTLTOOL_MAJOR=0.40
-INTLTOOL_VERSION=0.40.6
-INTLTOOL_TARNAME=intltool-$(INTLTOOL_VERSION)
-
-GETTEXT_TARNAME=gettext-0.18.2
-
 SQLITE_TARNAME=sqlite-autoconf-3080403
 
 UUID_MAJOR=2.24
@@ -76,24 +67,6 @@ sqlite: env
 	cd build/$(SQLITE_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
 	cd build/$(SQLITE_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
-intltool: env
-	cd build && curl -L -O $(GNOME_SOURCES)/intltool/$(INTLTOOL_MAJOR)/$(INTLTOOL_TARNAME).tar.gz
-	cd build && tar -xf $(INTLTOOL_TARNAME).tar.gz
-	cd build/$(INTLTOOL_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
-	cd build/$(INTLTOOL_TARNAME) && $(PREFIX)/env.sh make -j4 install
-
-gettext: env
-	cd build && curl -L -O http://ftp.gnu.org/pub/gnu/gettext/$(GETTEXT_TARNAME).tar.gz
-	cd build && tar -xzvf $(GETTEXT_TARNAME).tar.gz
-	cd build/$(GETTEXT_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
-	cd build/$(GETTEXT_TARNAME) && make -j4 install
-
-libffi: env
-	cd build && curl -o $(LIBFFI_TARNAME).tar.gz ftp://sourceware.org/pub/libffi/$(LIBFFI_TARNAME).tar.gz
-	cd build && tar -xf $(LIBFFI_TARNAME).tar.gz
-	cd build/$(LIBFFI_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
-	cd build/$(LIBFFI_TARNAME) && $(PREFIX)/env.sh make -j4 install
-
 json-glib: env
 	cd build && curl -L -O $(GNOME_SOURCES)/json-glib/$(JSON_GLIB_MAJOR)/$(JSON_GLIB_TARNAME).tar.xz
 	cd build && tar -xf $(JSON_GLIB_TARNAME).tar.xz
@@ -121,16 +94,6 @@ libsoup: env
 	cd build && tar -xf $(LIBSOUP_TARNAME).tar.xz
 	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --disable-gtk-doc --disable-tls-check || cat config.log
 	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh make -j4 install
-
-xml-parser: env
-	echo "Installing XML::Parser module"
-	$(PREFIX)/env.sh /app/local/bin/cpanm --local-lib=/app/local/lib/perl5/ -f -n XML::Parser
-
-perl-buildpack: env
-	echo "Installing Perl buildpack"
-	curl -L -O https://raw.github.com/miyagawa/heroku-buildpack-perl/master/bin/compile
-	chmod +x ./compile
-	$(PREFIX)/env.sh ./compile /app /app/cache
 
 copy-apt:
 	# move into our prefix so it will be installed and
