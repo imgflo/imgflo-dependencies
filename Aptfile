@@ -2,4 +2,5 @@ intltool
 libglib2.0-0
 libglib2.0-dev
 libjson-glib-dev
+sqlite3
 libxml-parser-perl
