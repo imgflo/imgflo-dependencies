@@ -33,6 +33,9 @@ JSON_GLIB_MAJOR=1.0
 JSON_GLIB_VERSION=1.0.2
 JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
 
+FFMPEG_VERSION=3.2
+FFMPEG_OPTIONS=--enable-ffmpeg --enable-avcodec --enable-avformat
+
 GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
 all: env
@@ -77,16 +80,22 @@ libsoup: env
 	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --disable-gtk-doc --disable-tls-check || cat config.log
 	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
+ffmpeg: env
+	cd build && curl -L -O https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.xz
+	cd build && tar -xf ffmpeg-${FFMPEG_VERSION}.tar.xz
+	cd build/ffmpeg-${FFMPEG_VERSION} && ./configure --prefix=${PREFIX} --disable-all --enable-shared ${FFMPEG_OPTIONS}
+	cd build/ffmpeg-${FFMPEG_VERSION} && make -j4 install
+
 copy-apt:
 	# move into our prefix so it will be installed and
 	rsync -a /app/.apt/usr/* $(PREFIX)/
 
-heroku-deps: copy-apt
+heroku-deps: ffmpeg copy-apt
 
 null:
 	echo "null target"
 
-travis-deps: null
+travis-deps: ffmpeg null
 
 dependencies: libsoup babl gegl
 
