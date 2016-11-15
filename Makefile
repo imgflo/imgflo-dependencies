@@ -29,10 +29,6 @@ LIBSOUP_MAJOR=2.50
 LIBSOUP_VERSION=2.50.0
 LIBSOUP_TARNAME=libsoup-$(LIBSOUP_VERSION)
 
-JSON_GLIB_MAJOR=1.0
-JSON_GLIB_VERSION=1.0.2
-JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
-
 GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
 all: env
@@ -48,12 +44,6 @@ env:
 	mkdir -p $(PREFIX)/bin || true
 	sed -e 's|@PREFIX@|$(PREFIX)|' env.sh.in > $(PREFIX)/env.sh
 	chmod +x $(PREFIX)/env.sh
-
-json-glib: env
-	cd build && curl -L -O $(GNOME_SOURCES)/json-glib/$(JSON_GLIB_MAJOR)/$(JSON_GLIB_TARNAME).tar.xz
-	cd build && tar -xf $(JSON_GLIB_TARNAME).tar.xz
-	cd build/$(JSON_GLIB_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
-	cd build/$(JSON_GLIB_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 glib: env
 	cd build && curl -L -O $(GNOME_SOURCES)/glib/$(GLIB_MAJOR)/$(GLIB_TARNAME).tar.xz
