@@ -58,7 +58,7 @@ babl: env
 gegl: env
 	cp ./hacks/nls.m4 ./gegl/m4/ && echo "HACKED nls.m4"
 	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) $(GEGL_OPTIONS)
-	cd gegl && $(PREFIX)/env.sh make -j4 install
+	cd gegl && $(PREFIX)/env.sh make -j4 install CFLAGS="-I/app/.apt/usr/include/json-glib-1.0/"
 
 libsoup: env
 #	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
