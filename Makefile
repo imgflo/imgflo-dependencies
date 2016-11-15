@@ -91,7 +91,10 @@ copy-apt:
 
 heroku-deps: copy-apt sqlite
 
-travis-deps: sqlite
+null:
+	echo "null target"
+
+travis-deps: null
 
 dependencies: libsoup babl gegl
 
