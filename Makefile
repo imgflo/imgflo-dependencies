@@ -33,8 +33,6 @@ JSON_GLIB_MAJOR=1.0
 JSON_GLIB_VERSION=1.0.2
 JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
 
-SQLITE_TARNAME=sqlite-autoconf-3080403
-
 GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
 all: env
@@ -50,12 +48,6 @@ env:
 	mkdir -p $(PREFIX)/bin || true
 	sed -e 's|@PREFIX@|$(PREFIX)|' env.sh.in > $(PREFIX)/env.sh
 	chmod +x $(PREFIX)/env.sh
-
-sqlite: env
-	cd build && curl -o $(SQLITE_TARNAME).tar.gz http://sqlite.org/2014/$(SQLITE_TARNAME).tar.gz
-	cd build && tar -xf $(SQLITE_TARNAME).tar.gz
-	cd build/$(SQLITE_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
-	cd build/$(SQLITE_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 json-glib: env
 	cd build && curl -L -O $(GNOME_SOURCES)/json-glib/$(JSON_GLIB_MAJOR)/$(JSON_GLIB_TARNAME).tar.xz
