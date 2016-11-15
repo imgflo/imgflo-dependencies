@@ -83,8 +83,8 @@ libsoup: env
 ffmpeg: env
 	cd build && curl -L -O https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.xz
 	cd build && tar -xf ffmpeg-${FFMPEG_VERSION}.tar.xz
-	cd build/ffmpeg-${FFMPEG_VERSION} && ./configure --prefix=${PREFIX} --disable-all --enable-shared ${FFMPEG_OPTIONS}
-	cd build/ffmpeg-${FFMPEG_VERSION} && make -j4 install
+	cd build/ffmpeg-${FFMPEG_VERSION} && $(PREFIX)/env.sh ./configure --prefix=${PREFIX} --disable-all --enable-shared ${FFMPEG_OPTIONS}
+	cd build/ffmpeg-${FFMPEG_VERSION} && $(PREFIX)/env.sh make -j4 install
 
 copy-apt:
 	# move into our prefix so it will be installed and
