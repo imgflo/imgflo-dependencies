@@ -20,7 +20,6 @@ LIBS=gegl-0.3 gio-unix-2.0 json-glib-1.0 libsoup-2.4 libpng
 DEPS=$(shell $(PREFIX)/env.sh pkg-config $(PKGCONFIG_ARGS) --libs --cflags $(LIBS))
 
 GNOME_SOURCES=http://ftp.gnome.org/pub/gnome/sources
-KERNEL_SOURCES=https://www.kernel.org/pub/linux
 
 GLIB_MAJOR=2.42
 GLIB_VERSION=2.42.1
@@ -35,9 +34,6 @@ JSON_GLIB_VERSION=1.0.2
 JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
 
 SQLITE_TARNAME=sqlite-autoconf-3080403
-
-UUID_MAJOR=2.24
-UUID_TARNAME=util-linux-2.24.2
 
 GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
@@ -54,12 +50,6 @@ env:
 	mkdir -p $(PREFIX)/bin || true
 	sed -e 's|@PREFIX@|$(PREFIX)|' env.sh.in > $(PREFIX)/env.sh
 	chmod +x $(PREFIX)/env.sh
-
-uuid: env
-	cd build && curl -O $(KERNEL_SOURCES)/utils/util-linux/v$(UUID_MAJOR)/$(UUID_TARNAME).tar.gz
-	cd build && tar -xf $(UUID_TARNAME).tar.gz
-	cd build/$(UUID_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --without-systemdsystemunitdir --disable-use-tty-group --disable-bash-completion
-	cd build/$(UUID_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
 sqlite: env
 	cd build && curl -o $(SQLITE_TARNAME).tar.gz http://sqlite.org/2014/$(SQLITE_TARNAME).tar.gz
