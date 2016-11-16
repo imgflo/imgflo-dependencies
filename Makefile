@@ -29,14 +29,10 @@ LIBSOUP_MAJOR=2.50
 LIBSOUP_VERSION=2.50.0
 LIBSOUP_TARNAME=libsoup-$(LIBSOUP_VERSION)
 
-JSON_GLIB_MAJOR=1.0
-JSON_GLIB_VERSION=1.0.2
-JSON_GLIB_TARNAME=json-glib-$(JSON_GLIB_VERSION)
-
 FFMPEG_VERSION=3.2
 FFMPEG_OPTIONS=--enable-ffmpeg --enable-avcodec --enable-avformat --enable-swscale
 
-GEGL_OPTIONS=--enable-workshop --without-libv4l --without-umfpack --with-libavformat
+GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
 all: env
 
@@ -52,12 +48,6 @@ env:
 	sed -e 's|@PREFIX@|$(PREFIX)|' env.sh.in > $(PREFIX)/env.sh
 	chmod +x $(PREFIX)/env.sh
 
-json-glib: env
-	cd build && curl -L -O $(GNOME_SOURCES)/json-glib/$(JSON_GLIB_MAJOR)/$(JSON_GLIB_TARNAME).tar.xz
-	cd build && tar -xf $(JSON_GLIB_TARNAME).tar.xz
-	cd build/$(JSON_GLIB_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX)
-	cd build/$(JSON_GLIB_TARNAME) && $(PREFIX)/env.sh make -j4 install
-
 glib: env
 	cd build && curl -L -O $(GNOME_SOURCES)/glib/$(GLIB_MAJOR)/$(GLIB_TARNAME).tar.xz
 	cd build && tar -xf $(GLIB_TARNAME).tar.xz
@@ -71,7 +61,7 @@ babl: env
 gegl: env
 	cp ./hacks/nls.m4 ./gegl/m4/ && echo "HACKED nls.m4"
 	cd gegl && $(PREFIX)/env.sh ./autogen.sh --prefix=$(PREFIX) $(GEGL_OPTIONS)
-	cd gegl && $(PREFIX)/env.sh make -j4 install
+	cd gegl && $(PREFIX)/env.sh make -j4 install CFLAGS="-I/app/.apt/usr/include/json-glib-1.0/"
 
 libsoup: env
 #	cp $(PREFIX)/share/aclocal/nls.m4 ./libsoup/m4/ || echo "HACK to get intltool working on Heroku not used"
