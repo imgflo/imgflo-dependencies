@@ -35,6 +35,7 @@ FFMPEG_VERSION=3.2
 FFMPEG_OPTIONS=--disable-all \
     --enable-shared \
     --enable-ffmpeg \
+    --enable-protocol=file \
     --enable-avcodec --enable-avformat --enable-swscale --enable-swresample --enable-avfilter \
     --enable-libopenh264 --enable-encoder=libopenh264 --enable-decoder=libopenh264
 
