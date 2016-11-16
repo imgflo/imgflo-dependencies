@@ -32,12 +32,12 @@ LIBSOUP_TARNAME=libsoup-$(LIBSOUP_VERSION)
 OPENH264_VERSION=1.6.0
 
 FFMPEG_VERSION=3.2
-FFMPEG_OPTIONS=--disable-all \
+FFMPEG_OPTIONS=--disable-hwaccels --disable-protocols --disable-devices --disable-bsfs --disable-filters \
     --enable-shared \
     --enable-ffmpeg \
     --enable-protocol=file \
     --enable-avcodec --enable-avformat --enable-swscale --enable-swresample --enable-avfilter \
-    --enable-libopenh264 --enable-encoder=libopenh264 --enable-decoder=libopenh264
+    --enable-libopenh264
 
 GEGL_OPTIONS=--enable-workshop --with-libavformat --without-libv4l --without-umfpack
 
