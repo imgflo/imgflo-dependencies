@@ -32,7 +32,11 @@ LIBSOUP_TARNAME=libsoup-$(LIBSOUP_VERSION)
 OPENH264_VERSION=1.6.0
 
 FFMPEG_VERSION=3.2
-FFMPEG_OPTIONS=--enable-ffmpeg --enable-avcodec --enable-avformat --enable-swscale --enable-libopenh264
+FFMPEG_OPTIONS=--disable-all \
+    --enable-shared \
+    --enable-ffmpeg \
+    --enable-avcodec --enable-avformat --enable-swscale --enable-swresample --enable-avfilter \
+    --enable-libopenh264 --enable-encoder=libopenh264 --enable-decoder=libopenh264
 
 GEGL_OPTIONS=--enable-workshop --without-libavformat --without-libv4l --without-umfpack
 
@@ -86,7 +90,7 @@ ffmpeg-download: env
 	cd build && tar -xf ffmpeg-${FFMPEG_VERSION}.tar.xz
 
 ffmpeg-build: env
-	cd build/ffmpeg-${FFMPEG_VERSION} && $(PREFIX)/env.sh ./configure --prefix=${PREFIX} --disable-all --enable-shared ${FFMPEG_OPTIONS}
+	cd build/ffmpeg-${FFMPEG_VERSION} && $(PREFIX)/env.sh ./configure --prefix=${PREFIX} ${FFMPEG_OPTIONS}
 	cd build/ffmpeg-${FFMPEG_VERSION} && $(PREFIX)/env.sh make -j4 install
 
 ffmpeg: ffmpeg-download ffmpeg-build
