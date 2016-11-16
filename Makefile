@@ -72,7 +72,7 @@ libsoup: env
 	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh ./configure --prefix=$(PREFIX) --disable-gtk-doc --disable-tls-check || cat config.log
 	cd build/$(LIBSOUP_TARNAME) && $(PREFIX)/env.sh make -j4 install
 
-openh264-download:
+openh264-download: env
 	cd build && curl -L -O https://github.com/cisco/openh264/archive/v${OPENH264_VERSION}.tar.gz
 	cd build && tar -xf v${OPENH264_VERSION}.tar.gz
 
