@@ -2,6 +2,7 @@ if [[ $TRAVIS_OS_NAME = "osx" ]]
 then
     brew install pkg-config intltool gettext autoconf automake libtool
     brew install glib json-glib
+    brew install nasm # for ffmpeg, default version is too old
 else
     sudo apt-get update -qq
     sudo apt-get --assume-yes build-dep gegl
