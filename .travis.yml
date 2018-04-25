@@ -17,6 +17,7 @@ before_deploy:
 - make package TARGET=travis-${TRAVIS_OS_NAME}
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: Iw7gpxI5jP4PC2SQqtHGMXo5HOcKl1s5Z+Qc5yA+G4DQVjxKl+xTUrNJbval7yCusExLqBnjzl5nWcBXYZiPZUzOXw5ZF5t3qkVYTPaMFwqF1fZVYIT6vkxlW4maVTFewPPAbj66KYgdOqUIOueZQOTz/9+W52wphWW3iYLoZ4w=
   file: imgflo-dependencies-travis-${TRAVIS_OS_NAME}.tgz
