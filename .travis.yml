@@ -14,19 +14,11 @@ install:
 script:
 - make check
 before_deploy:
-- if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-- make upload TARGET=travis-${TRAVIS_OS_NAME}
+- make package TARGET=travis-${TRAVIS_OS_NAME}
 deploy:
-  provider: heroku
-  app: imgflo-dependencies14
-  strategy: git
-  on:
-    tags: true
-  run:
-  - make heroku-release TARGET=heroku VERSION=`git describe --tags`
+  provider: releases
   api_key:
-    secure: J5slnQnumuFDxRDZWz+XWPCWguoPZpQlU5NJ2Hcvs1GTiA7wCN/hHIIOZeT+TXHVchlZX4lkF3KrNXNNxGw4jM5BU9l+8mqx623tmSzH2c8BlyFw10f/iRQP/xae7gbl4vSt3XlRsqugqDpbpQ0/g9L+ZikRac1pzShxXm2rxQ4=
-env:
-  global:
-  - secure: hmMq4ab2aLNUXgKi4YeJv736ArXlNR1FAnINDILdZ0Q6Ht1t/a7TBYBercUx1GWQJnaodxPtHiBZYsQuFYM1UEY34zxXpjjffcRO35zvsbQLQzYy54u31yjG7h1+u6EXNoaU0uno+8Ahuhg4ilAoYLNabqoJnQ4HVIRMdx7WNIQ=
-  - secure: dSd/ym4HclfRga/KllFut1nCMbPBrpEP+2WKkgwNnlctlpf5WlHnBbRMOS3fRHiVPwrAKUm68oLkDIZGyZv59smDabM1NcX+dKAoLNYz2u2jWOk3W02eA0/MyIPlOUR8/ZR/tQPucVfvXRmPDjH014cE9PZ6PBT3iW2HSePYTZk=
+    secure: Iw7gpxI5jP4PC2SQqtHGMXo5HOcKl1s5Z+Qc5yA+G4DQVjxKl+xTUrNJbval7yCusExLqBnjzl5nWcBXYZiPZUzOXw5ZF5t3qkVYTPaMFwqF1fZVYIT6vkxlW4maVTFewPPAbj66KYgdOqUIOueZQOTz/9+W52wphWW3iYLoZ4w=
+  file: imgflo-dependencies-travis-${TRAVIS_OS_NAME}.tgz
+  on:
+    repo: imgflo/imgflo-dependencies
