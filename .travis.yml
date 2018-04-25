@@ -22,3 +22,4 @@ deploy:
   file: imgflo-dependencies-travis-${TRAVIS_OS_NAME}.tgz
   on:
     repo: imgflo/imgflo-dependencies
+    tags: true
